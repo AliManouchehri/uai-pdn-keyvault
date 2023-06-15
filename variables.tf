@@ -81,3 +81,9 @@ variable "tags" {
   type        = map(any)
   default     = {}
 }
+
+variable "route_table_name" {
+  description = "Route table assigned to AKS subnet"
+  type        = string
+  default     = null
+}
