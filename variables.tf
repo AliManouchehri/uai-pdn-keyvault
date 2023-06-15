@@ -82,8 +82,27 @@ variable "tags" {
   default     = {}
 }
 
+variable "sas_viya_admin_group_name" {
+  description = "Azure AD SAS Viya admin group name"
+  type        = string
+  default     = null
+}
+
+
 variable "route_table_name" {
   description = "Route table assigned to AKS subnet"
   type        = string
   default     = null
+}
+
+variable "subnet_names" {
+  description = "Map subnet usage roles to existing subnet names"
+  type        = map(string)
+  default     = {}
+  # Example:
+  # subnet_names = {
+  #   'aks': 'my_aks_subnet',
+  #   'misc': 'my_misc_subnet',
+  #   'netapp': 'my_netapp_subnet'
+  # }
 }
