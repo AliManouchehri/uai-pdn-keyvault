@@ -22,6 +22,12 @@ resource "azurerm_private_dns_zone" "flexpsql" {
   resource_group_name = var.vnet_resource_group_name
 }
 
+resource "azurerm_private_dns_zone" "datalake" {
+  provider            = azurerm.p
+  name                = "privatelink.blob.core.windows.net"
+  resource_group_name = var.vnet_resource_group_name
+}
+
 resource "azurerm_private_dns_zone_virtual_network_link" "pdns_keyvault_vnet_link" {
   name                  = "pdns_keyvault_vnet_link"
   resource_group_name   = var.vnet_resource_group_name
@@ -47,4 +53,13 @@ resource "azurerm_private_dns_zone_virtual_network_link" "pdns_flexpsql_vnet_lin
   virtual_network_id    = data.azurerm_virtual_network.landing_zone_vnet.id
 
   depends_on = [azurerm_private_dns_zone.flexpsql]
+}
+
+resource "azurerm_private_dns_zone_virtual_network_link" "pdns_datalake_vnet_link" {
+  name                  = "pdns_datalake_vnet_link"
+  resource_group_name   = var.vnet_resource_group_name
+  private_dns_zone_name = "privatelink.blob.core.windows.net"
+  virtual_network_id    = data.azurerm_virtual_network.landing_zone_vnet.id
+
+  depends_on = [azurerm_private_dns_zone.datalake]
 }
