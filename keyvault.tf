@@ -8,20 +8,19 @@ resource "azurerm_key_vault" "kv_sas_viya" {
   network_acls {
     bypass         = "AzureServices"
     default_action = "Deny"
-    ip_rules = [
-      "174.112.195.55",
-    ]
+    virtual_network_subnet_ids = []
+    ip_rules = var.ip_rules
   }
 
   purge_protection_enabled   = true
-  soft_delete_retention_days = 60
+  soft_delete_retention_days = 60      # After the initial creation, this value cannot be changed
   tags                       = var.tags
 }
 
 resource "azurerm_key_vault_access_policy" "kv_access_policy_cloud_admins" {
   key_vault_id = azurerm_key_vault.kv_sas_viya.id
   tenant_id    = var.tenant_id
-  object_id    = data.azuread_group.group_sas_viya_admin.object_id
+  object_id    = data.azuread_group.azure_sasviya_cloud_admin.object_id
 
   certificate_permissions = [
     "Get",
