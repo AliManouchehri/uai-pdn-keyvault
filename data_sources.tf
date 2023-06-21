@@ -18,10 +18,6 @@ data "azurerm_route_table" "landing_zone_route_table" {
   resource_group_name = var.vnet_resource_group_name
 }
 
-#region Azure AD
-data "azuread_group" "group_sas_viya_admin" {
-  display_name = var.sas_viya_admin_group_name
-}
 
 # misc or mgmt subnet
 data "azurerm_subnet" "sn_misc" {
