@@ -82,13 +82,6 @@ variable "tags" {
   default     = {}
 }
 
-variable "sas_viya_admin_group_name" {
-  description = "Azure AD SAS Viya admin group name"
-  type        = string
-  default     = null
-}
-
-
 variable "route_table_name" {
   description = "Route table assigned to AKS subnet"
   type        = string
@@ -105,4 +98,9 @@ variable "subnet_names" {
   #   'misc': 'my_misc_subnet',
   #   'netapp': 'my_netapp_subnet'
   # }
+}
+
+variable "ip_rules" {
+  description = "List of public client IP or public firewall IP that is allowed to access the key vault"
+  type = list
 }
